@@ -10,7 +10,7 @@ echo.
 echo ========================================
 echo.
 echo  [0] ---  PC wechseln
-echo  [1] ---  GPupdate ausfÅhren
+echo  [1] ---  GPupdate ausf¬Åhren
 echo  [2] ---  PC herunterfahren
 echo  [3] ---  PC neustarten
 echo.
@@ -27,19 +27,20 @@ echo [13] ---  eingeloggte User abfragen
 echo.
 echo [14] ---  eingeloggte User abmelden
 echo.
-echo [15] ---  CMD Befehl ausfÅhren
-echo [16] ---  PowerShell Befehl ausfÅhren
+echo [15] ---  CMD Befehl ausf¬Åhren
+echo [16] ---  PowerShell Befehl ausf¬Åhren
+echo [17] ---  PowerShell Remote Verbindung ausf¬Åhren
 echo.
-echo [17] ---  endlos anpingen
-echo [18] ---  Dienste îffnen
-echo [19] ---  Nachricht an alle eingeloggten User senden
-echo [20] ---  Laufwerk C îffnen
-echo [21] ---  Laufwerk D îffnen
-echo [22] ---  Laufwerk E îffnen
-echo [23] ---  Benutzerprofil lîschen
-echo [24] ---  Logon-Script starten
-echo [25] ---  Windows Updates suchen und installieren
-echo [26] ---  Sophos deinstallieren
+echo [18] ---  endlos anpingen
+echo [19] ---  Dienste ‚Äùffnen
+echo [20] ---  Nachricht an alle eingeloggten User senden
+echo [21] ---  Laufwerk C ‚Äùffnen
+echo [22] ---  Laufwerk D ‚Äùffnen
+echo [23] ---  Laufwerk E ‚Äùffnen
+echo [24] ---  Benutzerprofil l‚Äùschen
+echo [25] ---  Logon-Script starten
+echo [26] ---  Windows Updates suchen und installieren
+echo [27] ---  Sophos deinstallieren
 
 echo.
 echo ----------------------------------------
@@ -75,16 +76,17 @@ if %asw%==13 goto loggedin
 if %asw%==14 goto logoff
 if %asw%==15 goto cmd
 if %asw%==16 goto powershell
-if %asw%==17 goto PING
-if %asw%==18 goto services
-if %asw%==19 goto message
-if %asw%==20 goto C
-if %asw%==21 goto D
-if %asw%==22 goto E
-if %asw%==23 goto delprof
-if %asw%==24 goto logon
-if %asw%==25 goto wupdate
-if %asw%==26 goto sophos
+if %asw%==17 goto powershellremote
+if %asw%==18 goto PING
+if %asw%==19 goto services
+if %asw%==20 goto message
+if %asw%==21 goto C
+if %asw%==22 goto D
+if %asw%==23 goto E
+if %asw%==24 goto delprof
+if %asw%==25 goto logon
+if %asw%==26 goto wupdate
+if %asw%==27 goto sophos
 if %asw%==30 goto adcomputer10
 if %asw%==31 goto adcomputer7
 if %asw%==32 goto adserver
@@ -99,7 +101,7 @@ set /p computer=DNS-Name oder IP-Adresse:
 ping %computer% -n 1 > nul 2> nul
 if errorlevel 1 (
 echo.
-echo Ziel nicht erreichbar, bitte wÑhle einen anderen Computer
+echo Ziel nicht erreichbar, bitte w‚Äûhle einen anderen Computer
 echo.
 pause
 goto computer
@@ -109,7 +111,7 @@ goto MAIN
 
 :gpupdate
 echo.
-echo Bitte warten, Vorgang wird ausgefÅhrt...
+echo Bitte warten, Vorgang wird ausgef¬Åhrt...
 powershell Invoke-Command -ComputerName %computer% -ScriptBlock {"gpupdate /force"}
 echo.
 pause
@@ -235,6 +237,11 @@ powershell Invoke-Command -ComputerName %computer% -ScriptBlock {%befehl%}
 pause
 goto MAIN
 
+:powershellremote
+cls
+start powershell -NoExit -Command "&{ Enter-PSSession -ComputerName %computer% }"
+goto MAIN
+
 :PING
 cls
 echo.
@@ -316,7 +323,7 @@ goto MAIN
 cls
 echo.
 start \\domaincontroller\netlogon\logon.cmd
-echo Logon-Script wird nun ausgefîhrt!
+echo Logon-Script wird nun ausgef‚Äùhrt!
 echo.
 pause
 goto MAIN
@@ -336,7 +343,7 @@ goto MAIN
 echo.
 cls
 echo Achtung!
-echo Wurde der Manipulationsschutz Åber Sophos Central deaktiviert?
+echo Wurde der Manipulationsschutz ¬Åber Sophos Central deaktiviert?
 echo und danach 5min gewartet?
 echo.
 echo aktuelle Uhrzeit:
@@ -360,7 +367,7 @@ goto MAIN
 :adcomputer10
 powershell.exe -File "\\server\it\Software\Powershell_Scripts\Active Directory\adcomputer10.ps1"
 echo.
-echo Datei erstellt und befÅllt!
+echo Datei erstellt und bef¬Ållt!
 echo.
 pause
 goto Main
@@ -368,7 +375,7 @@ goto Main
 :adcomputer7
 powershell.exe -File "\\server\it\Software\Powershell_Scripts\Active Directory\adcomputer7.ps1"
 echo.
-echo Datei erstellt und befÅllt!
+echo Datei erstellt und bef¬Ållt!
 echo.
 pause
 goto Main
@@ -376,7 +383,7 @@ goto Main
 :adserver
 powershell.exe -File "\\server\it\Software\Powershell_Scripts\Active Directory\adserver.ps1"
 echo.
-echo Datei erstellt und befÅllt!
+echo Datei erstellt und bef¬Ållt!
 echo.
 pause
 goto Main
@@ -384,7 +391,7 @@ goto Main
 :aduser
 powershell.exe -File "\\server\it\Software\Powershell_Scripts\Active Directory\aduser.ps1"
 echo.
-echo Datei erstellt und befÅllt!
+echo Datei erstellt und bef¬Ållt!
 echo.
 pause
 goto Main
