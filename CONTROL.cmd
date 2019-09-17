@@ -1,4 +1,10 @@
 @ECHO off
+
+rem Geschrieben von
+rem Matthias Pröll <proell.matthias@gmail.com>
+rem Staudigl-Druck GmbH & Co. KG
+rem Letzte Anpassung: 2019/09/17
+
 mode con:cols=100 lines=50
 cls
 echo.
